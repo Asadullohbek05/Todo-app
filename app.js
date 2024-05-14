@@ -3,6 +3,9 @@ const bodyElement = document.body;
 const formElement = document.querySelector('form')
 const ulElement = document.querySelector('.todos-list')
 const textElement = document.querySelector('.textInput')
+const clearElement = document.querySelector('.clear')
+const itemsElement = document.querySelector('.items')
+const btnElements = document.querySelectorAll('.btn')
 
 
 // dark Mode
@@ -29,7 +32,7 @@ modeElement.addEventListener('click', () => {
 
 // ---------------------------------------------------------
 
-let todos = []
+let todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []
 let editTodo = null
 
 // handle Submit
@@ -51,6 +54,7 @@ formElement.addEventListener('submit', (e) => {
     }
     textElement.value = ""
     renderTodos()
+    localStorage.setItem('todos', JSON.stringify(todos))
 })
 
 
@@ -94,12 +98,17 @@ function renderTodos() {
         ulElement.innerHTML = ""
     }
     ulElement.innerHTML = html;
+    const items = todos.filter(todo => todo.complated !== true)
+    itemsElement.textContent = `${items.length} items left`
 }
+
+renderTodos()
 
 // Delete Todos
 function deleteTodo(id) {
     todos = todos.filter(todo => todo.id !== id);
     renderTodos();
+    localStorage.setItem('todos', JSON.stringify(todos))
 }
 
 // Edit Todo 
@@ -108,11 +117,57 @@ function editTodoClick(id) {
     textElement.value = todo.text
     editTodo = todo
     textElement.nextElementSibling.textContent = "Edit"
+    localStorage.setItem('todos', JSON.stringify(todos))
 }
+
+let ComplatedTodos = []
 
 // Complate Todo
 function complateTodo(id) {
     const todo = todos.find(todo => todo.id === id)
     todo.complated = !todo.complated
     renderTodos()
+    localStorage.setItem('todos', JSON.stringify(todos))
+    ComplatedTodos.push(todo)
+    console.log(ComplatedTodos);
 }
+
+// Clear Complated 
+clearElement.addEventListener('click', () => {
+    todos = todos.filter(todo => todo.complated !== true)
+    renderTodos()
+    localStorage.setItem('todos', JSON.stringify(todos))
+})
+
+
+btnElements.forEach(btn => {
+    btn.addEventListener('click', () => {
+        btnElements.forEach(newBtn => {
+            if (newBtn == btn) {
+                newBtn.classList.add('active-color')
+            } else {
+                newBtn.classList.remove('active-color')
+            }
+        })
+
+        let compyTodos = todos
+
+        if (btn.textContent == 'Active') {
+            console.log('active work')
+            todos = todos.filter(todo => todo.complated == false)
+            renderTodos()
+            console.log(compyTodos);
+        }
+        else if (btn.textContent == 'Completed') {
+            console.log('complated work')
+            todos = todos.filter(todo => todo.complated !== false)
+            console.log(compyTodos);
+            renderTodos()
+        }
+        else {
+            todos = todos.filter(todo => todo.complated !== false || todo.complated === false)
+            console.log(compyTodos);
+            renderTodos()
+        }
+    })
+})
