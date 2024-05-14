@@ -120,7 +120,6 @@ function editTodoClick(id) {
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-let ComplatedTodos = []
 
 // Complate Todo
 function complateTodo(id) {
@@ -128,8 +127,6 @@ function complateTodo(id) {
     todo.complated = !todo.complated
     renderTodos()
     localStorage.setItem('todos', JSON.stringify(todos))
-    ComplatedTodos.push(todo)
-    console.log(ComplatedTodos);
 }
 
 // Clear Complated 
@@ -140,34 +137,34 @@ clearElement.addEventListener('click', () => {
 })
 
 
-btnElements.forEach(btn => {
-    btn.addEventListener('click', () => {
-        btnElements.forEach(newBtn => {
-            if (newBtn == btn) {
-                newBtn.classList.add('active-color')
-            } else {
-                newBtn.classList.remove('active-color')
-            }
-        })
+// btnElements.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//         btnElements.forEach(newBtn => {
+//             if (newBtn == btn) {
+//                 newBtn.classList.add('active-color')
+//             } else {
+//                 newBtn.classList.remove('active-color')
+//             }
+//         })
 
-        let compyTodos = todos
+//         let compyTodos = todos
 
-        if (btn.textContent == 'Active') {
-            console.log('active work')
-            todos = todos.filter(todo => todo.complated == false)
-            renderTodos()
-            console.log(compyTodos);
-        }
-        else if (btn.textContent == 'Completed') {
-            console.log('complated work')
-            todos = todos.filter(todo => todo.complated !== false)
-            console.log(compyTodos);
-            renderTodos()
-        }
-        else {
-            todos = todos.filter(todo => todo.complated !== false || todo.complated === false)
-            console.log(compyTodos);
-            renderTodos()
-        }
-    })
-})
+//         if (btn.textContent == 'Active') {
+//             console.log('active work')
+//             todos = todos.filter(todo => todo.complated == false)
+//             renderTodos()
+//             console.log(compyTodos);
+//         }
+//         else if (btn.textContent == 'Completed') {
+//             console.log('complated work')
+//             todos = todos.filter(todo => todo.complated !== false)
+//             console.log(compyTodos);
+//             renderTodos()
+//         }
+//         else {
+//             todos = todos.filter(todo => todo.complated !== false || todo.complated === false)
+//             console.log(compyTodos);
+//             renderTodos()
+//         }
+//     })
+// })
