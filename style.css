@@ -2,7 +2,7 @@
 
 :root {
   --white-color: #ffffff;
-  --bg-img: url(images/top-bg.svg);
+  --bg-img: url(images/top-bg.png);
   --shadow: 0px 35px 50px -15px #c2c3d680;
   --border-bottom: 1px solid #e3e4f1;
   --list-item-color: #494c6b;
@@ -15,7 +15,7 @@
 }
 
 .dark-mode {
-  --bg-img: url(images/dark-bg.svg);
+  --bg-img: url(images/dark-bg.png);
   --header-bg: #171823;
   --form-bg: #25273d;
   --svg-border-color: #393a4b;
